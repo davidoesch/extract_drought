@@ -42,7 +42,9 @@ print(f"Found {len(items)} items")
 
 results = []
 
-for item in items:
+for idx, item in enumerate(items, start=1):
+    print(f"Processing item {idx} of {len(items)}")
+
     date = item.properties['datetime']
 
     # Get the URL for the BANDS-10M asset
@@ -60,7 +62,8 @@ for item in items:
 
 
         # Append results without indexing into ndvi
-        results.append({'date': date, 'VHI': vhi_value})
+        if 0 <= vhi_value <= 100:
+            results.append({'date': date, 'VHI': vhi_value})
 
 # Create a DataFrame from the results
 df = pd.DataFrame(results)
